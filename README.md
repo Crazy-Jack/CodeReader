@@ -1,6 +1,6 @@
 # **AI-Powered Codebase Query System** 🚀  
 > **Interact with your codebase using GPT-4 for real-time AI-powered insights!**  
-> Search, retrieve, and analyze code snippets with dynamic Markdown rendering.
+> Never have to mannually upload your codebase or folder to browser based GPT. 
 
 ---
 
@@ -57,7 +57,13 @@ python3 run.py [your-codebase-root-folder]
 - [ ] Add `.ignore` file support to skip specific directories/files during encoding.  
 - [ ] Write a configuration script for setting `OPENAI_API_KEY`.  
 - [ ] Add a **web-based interface** for a more interactive experience.  
-
+- [ ] A bash terminal that is primarily based on natural language rather than command line. This way, call GPT become pervasive and they shouldn't be too distinguishable from the command line. 
+```bash
+> How to modify the xxxxxx [Natural Language]
+Language interaction with GPT
+> bash run.sh [Bash command]
+Function as a bash script and execute
+```
 ---
 
 ## **🐝 License**
