@@ -64,7 +64,7 @@ python3 run.py [your-codebase-root-folder]
   > How to modify the xxxxxx [Natural Language]
   Language interaction with GPT
   > bash run.sh [Bash command]
-  Function as a bash script and execute
+  Function as a bash shell and execute
   ```
 ---
 
