@@ -2,6 +2,7 @@
 > **Interact with your codebase using GPT-4 for real-time AI-powered insights!**  
 > Never have to mannually upload your codebase or folder to browser based GPT. 
 
+![AI Code Query Demo](code_reader.gif)
 ---
 
 ## **✨ Features**
