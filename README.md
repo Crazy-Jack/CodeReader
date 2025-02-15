@@ -1,4 +1,4 @@
-# **AI-Powered Codebase Query System** 🚀  
+# **AI-Powered Codebase Understanding & Debugging System** 🚀  
 > **Interact with your codebase using GPT-4 for real-time AI-powered insights!**  
 > Never have to mannually upload your codebase or folder to browser based GPT. 
 
