@@ -6,7 +6,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma 
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 
 from rich.console import Console
@@ -224,7 +224,6 @@ def question_answering_loop():
 
         # ✅ Skip empty queries
         if not query:
-            # console.print("[bold red]⚠️ Empty query. Please enter a valid question.[/bold red]")
             continue
         
         if query.lower() in ["exit", "quit"]:

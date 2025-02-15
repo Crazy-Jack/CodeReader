@@ -24,6 +24,7 @@ pip install -U langchain-community
 pip install langchain_openai
 pip install rich
 pip install watchdog
+pip install -U langchain-chroma
 ```
 
 ### **2⃣ Set Up Your OpenAI API Key**
