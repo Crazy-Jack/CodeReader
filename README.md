@@ -59,13 +59,13 @@ python3 run.py [your-codebase-root-folder]
 - [ ] Add `.ignore` file support to skip specific directories/files during encoding.  
 - [ ] Write a configuration script for setting `OPENAI_API_KEY`.  
 - [ ] Add a **web-based interface** for a more interactive experience.  
-- [ ] A bash terminal that is primarily based on natural language rather than command line. This way, call GPT become pervasive and they shouldn't be too distinguishable from the command line. 
-```bash
-> How to modify the xxxxxx [Natural Language]
-Language interaction with GPT
-> bash run.sh [Bash command]
-Function as a bash script and execute
-```
+- [ ] A bash terminal that is primarily based on natural language rather than command line. This way, calling GPT become pervasive. The future of computer interface should be natural language rather than program command, so the shell should be human language first, not machine language first. 
+  ```bash
+  > How to modify the xxxxxx [Natural Language]
+  Language interaction with GPT
+  > bash run.sh [Bash command]
+  Function as a bash script and execute
+  ```
 ---
 
 ## **🐝 License**
