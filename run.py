@@ -123,35 +123,61 @@ def start_monitoring(directory):
     
 #     console.print("\n[bold cyan]=== Retrieved Code Snippets ===[/bold cyan]\n")
 
-#     # Display retrieved code snippets with syntax highlighting
+#     # ✅ Remove near-duplicate snippets before displaying
+#     seen_snippets = set()
+#     unique_docs = []
 #     for doc in retrieved_docs:
+#         normalized_code = doc.page_content.strip()
+#         if normalized_code not in seen_snippets:
+#             unique_docs.append(doc)
+#             seen_snippets.add(normalized_code)
+
+#     # ✅ Display only unique snippets with filename and separator line
+#     for i, doc in enumerate(unique_docs):
 #         language = doc.metadata.get("source", "python")  # Default to Python
 #         code = doc.page_content
+#         filename = doc.metadata.get("source", "Unknown File")  # Get file path
+
+#         # ✅ Display the filename above the code snippet
+#         console.print(f"[bold magenta]File: {filename}[/bold magenta]")
 #         console.print(Syntax(code, language, theme="monokai", line_numbers=True))
 
-#     # Prepare query message
+#         # ✅ Add a separator between snippets (except after the last one)
+#         if i < len(unique_docs) - 1:
+#             console.print("[bold yellow]──────────────────────────────────────────────────────[/bold yellow]")
+
+#     # ✅ Generate a cleaner prompt
+#     unique_code_blocks = "\n\n".join([
+#         f"**File: {doc.metadata.get('source', 'Unknown File')}**\n\n```{doc.metadata.get('source', 'python')}\n{doc.page_content}\n```"
+#         for doc in unique_docs
+#     ])
+
 #     messages = [
-#         {"role": "system", "content": "You are a senior AI engineer assisting in code analysis."},
-#         {"role": "user", "content": f"Analyze the following code snippets and answer in Markdown format: {query}\n\n" + 
-#                                     "\n\n".join([f"```{doc.metadata.get('source', 'python')}\n{doc.page_content}\n```" for doc in retrieved_docs])}
+#         {"role": "system", "content": "You are a senior AI engineer specializing in code analysis. Your task is to analyze and explain unique insights."},
+#         {"role": "user", "content": f"Analyze the following unique code snippets and answer in Markdown format:\n\n{unique_code_blocks}\n\n"
+#                                     "### Important Notes:\n"
+#                                     "- Avoid repeating explanations.\n"
+#                                     "- Summarize common patterns if multiple snippets are similar.\n"
+#                                     "- Provide only the key insights.\n"
+#                                     "- Also provide code solutions to fix the update, suggest in seperate code blocks"}
 #     ]
 
 #     console.print("\n[bold green]=== AI Response (Streaming) ===[/bold green]\n")
 
 #     response_stream = llm.stream(messages)
 
-#     markdown_text = ""
+#     markdown_text = ""  # ✅ Start with an empty Markdown buffer
 
-#     # Use Live to continuously update the Markdown output
-#     with Live(auto_refresh=True, console=console) as live:
+#     # ✅ Use Live to continuously update the Markdown output without duplication
+#     with Live(console=console, refresh_per_second=10) as live:
 #         for chunk in response_stream:
 #             text = chunk.content
 #             if text:
-#                 markdown_text += text  # Accumulate response
-#                 live.update(Markdown(markdown_text))  # Render Markdown dynamically
-#                 time.sleep(0.01)  # Simulate streaming delay
+#                 markdown_text += text  # ✅ Accumulate new content
+#                 live.update(Markdown(markdown_text))  # ✅ Update Markdown content only with new data
+#                 time.sleep(0.01)  # ✅ Controlled streaming delay to simulate real-time flow
 
-#     console.print("\n")  # Formatting for readability
+#     console.print("\n")  # ✅ Final formatting for readability
 
 def generate_code_analysis(query, retrieved_docs, llm):
     """Use GPT-4 to analyze retrieved code snippets and stream output in a colorful Markdown format."""
@@ -194,25 +220,25 @@ def generate_code_analysis(query, retrieved_docs, llm):
                                     "- Avoid repeating explanations.\n"
                                     "- Summarize common patterns if multiple snippets are similar.\n"
                                     "- Provide only the key insights.\n"
-                                    "- Also provide code solutions to fix the update, suggest in seperate code blocks"}
+                                    "- Also provide code solutions to fix the update, suggest in separate code blocks"}
     ]
 
     console.print("\n[bold green]=== AI Response (Streaming) ===[/bold green]\n")
 
     response_stream = llm.stream(messages)
 
-    markdown_text = ""  # ✅ Start with an empty Markdown buffer
+    markdown_text = ""  # Accumulate the text
 
-    # ✅ Use Live to continuously update the Markdown output without duplication
+    # ✅ Use Live to update only the new content without clearing the old
     with Live(console=console, refresh_per_second=10) as live:
         for chunk in response_stream:
             text = chunk.content
             if text:
-                markdown_text += text  # ✅ Accumulate new content
-                live.update(Markdown(markdown_text))  # ✅ Update Markdown content only with new data
-                time.sleep(0.01)  # ✅ Controlled streaming delay to simulate real-time flow
+                markdown_text += text  # Accumulate content
+                live.update(Markdown(markdown_text))  # Only update with new content
+                time.sleep(0.01)  # Controlled streaming delay for smoother flow
 
-    console.print("\n")  # ✅ Final formatting for readability
+    console.print("\n")  # Final formatting for readability
 
 
 def question_answering_loop():
